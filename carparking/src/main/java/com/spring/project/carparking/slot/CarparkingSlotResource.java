@@ -20,6 +20,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spring.project.carparking.slot.CarparkingSlot;
 import com.spring.project.carparking.slot.CarparkingSlotNotFoundException;
+import com.spring.project.carparking.user.User;
+
+import io.swagger.annotations.ApiOperation;
 
 
 @CrossOrigin
@@ -29,12 +32,18 @@ public class CarparkingSlotResource {
 
 	@Autowired
 	private CarparkingSlotRepository carparkingslotRepository;
-	@GetMapping("slot")
+	@GetMapping("/api/slot")
+	@ApiOperation(value="finds the slot ",
+	notes="displays the values",
+	response=CarparkingSlot.class)
 	public List<CarparkingSlot> retrieveAllCarparkingSlot() {
 		return carparkingslotRepository.findAll();
 	}
 
-	@GetMapping("slot/{id}")
+	@GetMapping("/api/slot/{id}")
+	@ApiOperation(value="finds specific slot ",
+	notes="displays the specific values",
+	response=CarparkingSlot.class)
 	public CarparkingSlot retrieveCarparkingSlot(@PathVariable long id) {
 		Optional<CarparkingSlot>carparkingslot = carparkingslotRepository.findById(id);
 
@@ -44,12 +53,18 @@ public class CarparkingSlotResource {
 		return carparkingslot.get();
 	}
  
-	@DeleteMapping("slot/{id}")
+	@DeleteMapping("/api/slot/{id}")
+	@ApiOperation(value="deletes specific slot ",
+	notes="deletes the specific values",
+	response=CarparkingSlot.class)
 	public void deleteCarparkingSlot(@PathVariable long id) {
 		carparkingslotRepository.deleteById(id);
 	}
 
-	@PostMapping("slot")
+	@PostMapping("/api/slot")
+	@ApiOperation(value="gives slot ",
+	notes="gives the values",
+	response=CarparkingSlot.class)
 	public ResponseEntity<Object> createcarparkingslot(@RequestBody CarparkingSlot carparkingslot) {
 	
 		   
@@ -63,7 +78,10 @@ public class CarparkingSlotResource {
 
 	}
 	
-	@PutMapping("slot/{id}")
+	@PutMapping("/api/slot/{id}")
+	@ApiOperation(value="modifies specific slot ",
+	notes="modifies the specific values",
+	response=CarparkingSlot.class)
 	public ResponseEntity<Object> updatecarparkingslot(@RequestBody CarparkingSlot carparkingslot, @PathVariable long id) {
 
 		Optional<CarparkingSlot> carparkingslotOptional = carparkingslotRepository.findById(id);

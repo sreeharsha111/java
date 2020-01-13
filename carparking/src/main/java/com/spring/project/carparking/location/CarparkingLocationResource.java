@@ -21,6 +21,9 @@ import com.spring.project.carparking.location.CarparkingLocation;
 import com.spring.project.carparking.location.CarparkingLocationNotFoundException;
 
 import com.spring.project.carparking.location.CarparkingLocationRepository;
+import com.spring.project.carparking.slot.CarparkingSlot;
+
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
@@ -29,12 +32,18 @@ public class CarparkingLocationResource {
 
 	@Autowired
 	private CarparkingLocationRepository carparkinglocationRepository;
-	@GetMapping("location")
+	@GetMapping("/api/location")
+	@ApiOperation(value="finds  location ",
+	notes="displays the values",
+	response=CarparkingLocation.class)
 	public List<CarparkingLocation> retrieveAllCarparkinglocation() {
 		return carparkinglocationRepository.findAll();
 	}
 
-	@GetMapping("location/{location}")
+	@GetMapping("/api/location/{location}")
+	@ApiOperation(value="finds specific location ",
+	notes="displays the specific values",
+	response=CarparkingLocation.class)
 	public CarparkingLocation retrieveCarparkingLocation(@PathVariable String location) {
 		Optional<CarparkingLocation>carparkinglocation = carparkinglocationRepository.findById(location);
 
@@ -44,12 +53,18 @@ public class CarparkingLocationResource {
 		return carparkinglocation.get();
 	}
  
-	@DeleteMapping("location/{location}")
+	@DeleteMapping("/api/location/{location}")
+	@ApiOperation(value="deletes specific location ",
+	notes="deletes the specific values",
+	response=CarparkingLocation.class)
 	public void deleteCarparkingLocation(@PathVariable String location) {
 		carparkinglocationRepository.deleteById(location);
 	}
 
-	@PostMapping("location")
+	@PostMapping("/api/location")
+	@ApiOperation(value="gives location ",
+	notes="gives the values",
+	response=CarparkingLocation.class)
 	public ResponseEntity<Object> createcarparkinglocation(@RequestBody CarparkingLocation carparkinglocation) {
 	
 		   
@@ -63,7 +78,10 @@ public class CarparkingLocationResource {
 
 	}
 	
-	@PutMapping("location/{location}")
+	@PutMapping("/api/location/{location}")
+	@ApiOperation(value="modifies specific location ",
+	notes="modifies the specific values",
+	response=CarparkingLocation.class)
 	public ResponseEntity<Object> updatecarparkinglocation(@RequestBody CarparkingLocation carparkinglocation, @PathVariable String location) {
 
 		Optional<CarparkingLocation> carparkinglocationOptional = carparkinglocationRepository.findById(location);
